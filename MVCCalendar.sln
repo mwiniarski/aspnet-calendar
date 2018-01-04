@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCCalendar", "MVCCalendar\MVCCalendar.csproj", "{EDA9C01E-423C-4BB5-9F1E-4648EB735476}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCCalendar.Tests", "MVCCalendar.Tests\MVCCalendar.Tests.csproj", "{A3B7FEEF-90D6-4420-B3F6-E4F92C08DE3F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EDA9C01E-423C-4BB5-9F1E-4648EB735476}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDA9C01E-423C-4BB5-9F1E-4648EB735476}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDA9C01E-423C-4BB5-9F1E-4648EB735476}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDA9C01E-423C-4BB5-9F1E-4648EB735476}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3B7FEEF-90D6-4420-B3F6-E4F92C08DE3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3B7FEEF-90D6-4420-B3F6-E4F92C08DE3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3B7FEEF-90D6-4420-B3F6-E4F92C08DE3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3B7FEEF-90D6-4420-B3F6-E4F92C08DE3F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
