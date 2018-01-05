@@ -10,6 +10,8 @@ namespace MVCCalendar.Controllers
     {
         public ActionResult Index()
         {
+            string[] week = new string[4] {"1", "2", "3", "4"};
+            ViewBag.week = week;
             return View();
         }
 
