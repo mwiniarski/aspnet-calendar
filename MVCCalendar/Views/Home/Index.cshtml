@@ -1,10 +1,9 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
 <table class="calendar">
     <tr>
-        <td class="prev-next-btn"><a href="#">prev</a></td>
+        <td class="prev-next-btn">@Html.ActionLink("prev", "Prev")</td>
         <td>Monday</td>
         <td>Tuesday</td>
         <td>Wednesday</td>
@@ -12,43 +11,69 @@
         <td>Friday</td>
         <td>Saturday</td>
         <td>Sunday</td>
-        <td class="prev-next-btn">next</td>
+        <td class="prev-next-btn">@Html.ActionLink("prev", "Prev")</td>
     </tr>
     <tr>
-        <td>W01 2018</td>
-        @foreach(var day in ViewBag.week) {
-            <td>
-               @day
-            </td>
+        <td>@string.Format("W{0:D2} 2018", ViewBag.week)</td>
+        @foreach(var Day in ViewBag.cal.GetRange(0,7)) {
+            <td><div>
+               @foreach (var Event in Day.Events)
+               {
+                   <div class="event">
+                       @Event
+                   </div>
+               }
+            </div></td>
         }
-        <td>W01 2018</td>
+        <td>@string.Format("W{0:D2} 2018", ViewBag.week)</td>
     </tr>
     <tr>
-        <td>W02 2018</td>
-        @*@foreach (var day in week[1])
+        <td>@string.Format("W{0:D2} 2018", ViewBag.week + 1)</td>
+        @foreach (var Day in ViewBag.cal.GetRange(8, 7))
         {
-            <td></td>
-        }*@
-        <td>W02 2018</td>
+            <td><div>
+                @*@foreach (var Event in Day.Events)
+                {
+                    <div class="event">
+                        @Event
+                    </div>
+                }*@
+            </div></td>
+        }
+        <td>@string.Format("W{0:D2} 2018", ViewBag.week + 1)</td>
     </tr>
     <tr>
-        <td>W03 2018</td>
-       @*@foreach (var day in week[1])
-    {
-        <td></td>
-    }*@
-        <td>W03 2018</td>
+        <td>@string.Format("W{0:D2} 2018", ViewBag.week + 2)</td>
+        @foreach (var Day in ViewBag.days)
+        {
+            <td><div>
+                @*@foreach (var Event in Day.Events)
+                {
+                    <div class="event">
+                        @Event
+                    </div>
+                }*@
+            </div></td>
+        }
+        <td>@string.Format("W{0:D2} 2018", ViewBag.week + 2)</td>
     </tr>
     <tr>
-        <td>W04 2018</td>
-        @*@foreach (var day in week[1])
-    {
-        <td></td>
-    }*@
-        <td>W04 2018</td>
+        <td>@string.Format("W{0:D2} 2018", ViewBag.week + 3)</td>
+        @foreach (var Day in ViewBag.days)
+        {
+            <td><div>
+                @*@foreach (var Event in Day.Events)
+                {
+                    <div class="event">
+                        @Event
+                    </div>
+                }*@
+            </div></td>
+        }
+        <td>@string.Format("W{0:D2} 2018", ViewBag.week + 3)</td>
     </tr>
     <tr>
-        <td class="prev-next-btn">prev</td>
+        <td class="prev-next-btn">@Html.ActionLink("next", "Next")</td>
         <td>Monday</td>
         <td>Tuesday</td>
         <td>Wednesday</td>
@@ -56,6 +81,6 @@
         <td>Friday</td>
         <td>Saturday</td>
         <td>Sunday</td>
-        <td class="prev-next-btn">next</td>
+        <td class="prev-next-btn">@Html.ActionLink("next", "Next")</td>
     </tr>
 </table>

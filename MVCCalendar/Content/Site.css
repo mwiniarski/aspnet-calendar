@@ -36,6 +36,10 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
+.event {
+
+}
+
 .prev-next-btn {
     background-color: #cbe5e5 !important;
     line-height: 4.16vw;
@@ -52,6 +56,12 @@ td > a {
     display: block;
 }
 
+td > div {
+    overflow: auto;
+    max-height: 12.5vw;
+    max-width: 12.5vw;
+}
+
 td > a:hover,
 td > a:focus {
     color: inherit;
@@ -61,7 +71,8 @@ td > a:focus {
 td {
     width: 12.5vw;
     border-radius: 4px;
-    border: 1px black solid;
+    border: 1px black solid;    
+    vertical-align: top;
 }
 
 td:last-child,
@@ -69,6 +80,7 @@ td:first-child {
     width: 6.25vw;
     background: #cbcbe8;
     border: none;
+    vertical-align: middle;
 }
 
 tr {
@@ -84,6 +96,7 @@ tr:last-child {
 tr:first-child > td,
 tr:last-child > td {
     border: none;
+    vertical-align: middle;
 }
 
 .calendar {
