@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -15,7 +16,8 @@ namespace MVCCalendar.Controllers
         {
             Database.SetInitializer<StorageContext>(null);  // to wyłącza sprawdzanie migracji
             Storage s = new Storage();
-            s.logInPerson("baby");
+            Person p = s.logInPerson("baby");
+            Session["user"] = p;
             Session["storage"] = s;
             if(Session["week"] == null)
             {
@@ -23,7 +25,7 @@ namespace MVCCalendar.Controllers
                 Session["week"] = dfi.Calendar.GetWeekOfYear(DateTime.Now, dfi.CalendarWeekRule, dfi.FirstDayOfWeek); ;
             }
             int week = (int)Session["week"];
-            List<Appointment> appointments = s.getAppointments(week);
+            List<Appointment> appointments = s.getAppointments(week, p);
 
             List<Day> calendar = new List<Day>();
             int offset = (week - 1) * 7 + 1;
@@ -58,18 +60,40 @@ namespace MVCCalendar.Controllers
             return Redirect("/");
         }
 
-        public ActionResult Add()
+        public bool isDateValid(int month, int day)
         {
+            return day <= DateTime.DaysInMonth(2018, month);
+        }
+
+        public ActionResult Add(int month, int day)
+        {
+            if(!isDateValid(month, day))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            ViewBag.month = month;
+            ViewBag.day = day;
             
+
             return View();
         }
 
         [HttpPost]
-        public RedirectResult Add([Bind(Include = "Title, Description, AppointmentDate")]Appointment apt)
+        public RedirectResult Add([Bind(Include = "Title, Description, AppointmentDate")]Appointment apt, int month, int day)
         {
+            if (!isDateValid(month, day))
+            {
+                Session["message"] = "Wrong url address!";
+                Redirect("/");
+            }
+
             System.Diagnostics.Debug.WriteLine(apt.Title);
+            System.Diagnostics.Debug.WriteLine(day);
+            System.Diagnostics.Debug.WriteLine(month);
             Storage s = new Storage();
-            s.addAppointment(apt);
+            apt.AppointmentDate = new DateTime(2018, month, day);
+            s.addAppointment(apt, (Person)Session["user"]);
             return Redirect("/");
         }
 

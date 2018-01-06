@@ -33,8 +33,8 @@ namespace MVCCalendar
 
             routes.MapRoute(
                 "Add",
-                "add",
-                new { controller = "Home", action = "Add" }
+                "add/{month}/{day}",
+                new { controller = "Home", action = "Add", month = UrlParameter.Optional, day = UrlParameter.Optional }
             );
         }
     }

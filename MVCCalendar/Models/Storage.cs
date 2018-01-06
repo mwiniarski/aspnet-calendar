@@ -8,16 +8,16 @@ namespace MVCCalendar.Models
 {
     class Storage
     {
-        Person p;
-
-        public void logInPerson(string login)
+        public Person logInPerson(string login)
         {
+            Person p;
             using (var db = new StorageContext())
                 p = db.Persons.Where(b => b.UserID == login).FirstOrDefault();
-            Console.WriteLine(string.Format("{0} {1} logged in.", p.FirstName, p.LastName));
+            System.Diagnostics.Debug.WriteLine(string.Format("{0} {1} logged in.", p.FirstName, p.LastName));
+            return p;
         }
 
-        public List<Appointment> getAppointments(int week)
+        public List<Appointment> getAppointments(int week, Person p)
         {
             using (var db = new StorageContext())
             {
@@ -32,7 +32,7 @@ namespace MVCCalendar.Models
             }
         }
 
-        public void addAppointment(Appointment a)
+        public void addAppointment(Appointment a, Person p)
         {
             Console.WriteLine(a.AppointmentDate);
             using (var db = new StorageContext())

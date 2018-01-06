@@ -13,77 +13,34 @@
         <td>Sunday</td>
         <td class="prev-next-btn">@Html.ActionLink("prev", "Prev")</td>
     </tr>
+    
+    @for (int i = 0; i < 4; i++)
+    {
+        
     <tr>
-        <td>@string.Format("W{0:D2} 2018", ViewBag.week)</td>
-        @foreach(var Day in ViewBag.cal.GetRange(0,7)) {
-            <td><div>
-                <div class="date">
-                    @Day.DateString
-                </div>
-                @foreach (var Event in Day.Events)
-                {
-                    <div class="event">
-                        @Event
-                    </div>
-                }
-            </div></td>
-        }
-        <td>@string.Format("W{0:D2} 2018", ViewBag.week)</td>
-    </tr>
-    <tr>
-        <td>@string.Format("W{0:D2} 2018", ViewBag.week + 1)</td>
-        @foreach (var Day in ViewBag.cal.GetRange(7, 7))
+        <td>@string.Format("W{0:D2} 2018", ViewBag.week + i)</td>
+
+        @foreach (var Day in ViewBag.cal.GetRange(7*i, 7))
         {
-            <td><div>
-                <div class="date">
-                    @Day.DateString
-                </div>
-                @*@foreach (var Event in Day.Events)
-                {
-                    <div class="event">
-                        @Event
+            <td>
+                <a class="day" href=@Url.Action("Add", "Home", new { month = string.Format("{0:MM}", Day.Date), day = string.Format("{0:dd}", Day.Date) })>
+                    <div class="date">
+                        @Day.DateString
                     </div>
-                }*@
-            </div></td>
+                    @foreach (var Event in Day.Events)
+                    {
+                        <div class="event">
+                            @Event.StartTime.ToString("hh':'mm")
+                            @Event.Title
+                        </div>
+                    }
+                </a>
+            </td>
         }
-        <td>@string.Format("W{0:D2} 2018", ViewBag.week + 1)</td>
+        <td>@string.Format("W{0:D2} 2018", ViewBag.week + i)</td>
     </tr>
-    <tr>
-        <td>@string.Format("W{0:D2} 2018", ViewBag.week + 2)</td>
-        @foreach (var Day in ViewBag.cal.GetRange(14, 7))
-        {
-            <td><div>
-                <div class="date">
-                    @Day.DateString
-                </div>
-                @*@foreach (var Event in Day.Events)
-                {
-                    <div class="event">
-                        @Event
-                    </div>
-                }*@
-            </div></td>
-        }
-        <td>@string.Format("W{0:D2} 2018", ViewBag.week + 2)</td>
-    </tr>
-    <tr>
-        <td>@string.Format("W{0:D2} 2018", ViewBag.week + 3)</td>
-        @foreach (var Day in ViewBag.cal.GetRange(21, 7))
-        {
-            <td><div>
-                <div class="date">
-                    @Day.DateString
-                </div>
-                @*@foreach (var Event in Day.Events)
-                {
-                    <div class="event">
-                        @Event
-                    </div>
-                }*@
-            </div></td>
-        }
-        <td>@string.Format("W{0:D2} 2018", ViewBag.week + 3)</td>
-    </tr>
+        
+    }
     <tr>
         <td class="prev-next-btn">@Html.ActionLink("next", "Next")</td>
         <td>Monday</td>
