@@ -16,7 +16,7 @@ namespace MVCCalendar.Controllers
             Database.SetInitializer<StorageContext>(null);  // to wyłącza sprawdzanie migracji
             Storage s = new Storage();
             s.logInPerson("baby");
-
+            Session["storage"] = s;
             if(Session["week"] == null)
             {
                 var dfi = DateTimeFormatInfo.CurrentInfo;
@@ -24,32 +24,25 @@ namespace MVCCalendar.Controllers
             }
             int week = (int)Session["week"];
             List<Appointment> appointments = s.getAppointments(week);
-            ViewBag.apts = appointments;
 
             List<Day> calendar = new List<Day>();
+            int offset = (week - 1) * 7 + 1;
             for (int i = 0; i < 28; i++)
             {
-                calendar.Add(new Day());
+                calendar.Add(new Day(offset + i - 1));
             }
 
-            int offset = (week - 1) * 7 + 1;
             foreach (Appointment ap in appointments)
             {
                 calendar[ap.AppointmentDate.DayOfYear - offset].Events.Add(ap);
             }
             
-            string[] days = new string[7] {"12345678", "234", "345", "456", "567", "678", "789"};
             ViewBag.cal = calendar;
-            for (int i = 0; i < 28; i++)
-            {
-                Console.Write(calendar[i].Events);
-            }
-            ViewBag.days = days;
-            ViewBag.week = Session["week"];
+            ViewBag.week = week;
             return View();
         }
 
-        public ActionResult Next()
+        public RedirectResult Next()
         {
             var week = (int)Session["week"];
             if (week != 48)
@@ -57,11 +50,26 @@ namespace MVCCalendar.Controllers
             return Redirect("/");
         }
 
-        public ActionResult Prev()
+        public RedirectResult Prev()
         {
             var week = (int)Session["week"];
             if(week != 1)
                 Session["week"] = week - 1;
+            return Redirect("/");
+        }
+
+        public ActionResult Add()
+        {
+            
+            return View();
+        }
+
+        [HttpPost]
+        public RedirectResult Add([Bind(Include = "Title, Description, AppointmentDate")]Appointment apt)
+        {
+            System.Diagnostics.Debug.WriteLine(apt.Title);
+            Storage s = new Storage();
+            s.addAppointment(apt);
             return Redirect("/");
         }
 

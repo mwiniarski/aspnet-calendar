@@ -30,6 +30,12 @@ namespace MVCCalendar
                 "prev",
                 new { controller = "Home", action = "Prev" }
             );
+
+            routes.MapRoute(
+                "Add",
+                "add",
+                new { controller = "Home", action = "Add" }
+            );
         }
     }
 }

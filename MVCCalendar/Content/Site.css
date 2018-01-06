@@ -36,6 +36,13 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
+.date {
+    border: 1px black solid;
+    border-radius: 2px;
+    color: black;
+    font-size: 1.2vw;
+}
+
 .event {
 
 }

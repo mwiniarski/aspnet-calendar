@@ -17,21 +17,27 @@
         <td>@string.Format("W{0:D2} 2018", ViewBag.week)</td>
         @foreach(var Day in ViewBag.cal.GetRange(0,7)) {
             <td><div>
-               @foreach (var Event in Day.Events)
-               {
-                   <div class="event">
-                       @Event
-                   </div>
-               }
+                <div class="date">
+                    @Day.DateString
+                </div>
+                @foreach (var Event in Day.Events)
+                {
+                    <div class="event">
+                        @Event
+                    </div>
+                }
             </div></td>
         }
         <td>@string.Format("W{0:D2} 2018", ViewBag.week)</td>
     </tr>
     <tr>
         <td>@string.Format("W{0:D2} 2018", ViewBag.week + 1)</td>
-        @foreach (var Day in ViewBag.cal.GetRange(8, 7))
+        @foreach (var Day in ViewBag.cal.GetRange(7, 7))
         {
             <td><div>
+                <div class="date">
+                    @Day.DateString
+                </div>
                 @*@foreach (var Event in Day.Events)
                 {
                     <div class="event">
@@ -44,9 +50,12 @@
     </tr>
     <tr>
         <td>@string.Format("W{0:D2} 2018", ViewBag.week + 2)</td>
-        @foreach (var Day in ViewBag.days)
+        @foreach (var Day in ViewBag.cal.GetRange(14, 7))
         {
             <td><div>
+                <div class="date">
+                    @Day.DateString
+                </div>
                 @*@foreach (var Event in Day.Events)
                 {
                     <div class="event">
@@ -59,9 +68,12 @@
     </tr>
     <tr>
         <td>@string.Format("W{0:D2} 2018", ViewBag.week + 3)</td>
-        @foreach (var Day in ViewBag.days)
+        @foreach (var Day in ViewBag.cal.GetRange(21, 7))
         {
             <td><div>
+                <div class="date">
+                    @Day.DateString
+                </div>
                 @*@foreach (var Event in Day.Events)
                 {
                     <div class="event">
