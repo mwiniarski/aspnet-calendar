@@ -1,12 +1,13 @@
 ﻿@model MVCCalendar.Appointment
 
 @{
-    ViewBag.Title = "Add";
+    ViewBag.Title = "Edit";
 }
 
-<h2>Add</h2>
-<h2>@ViewBag.date</h2>
-@using (Html.BeginForm()) 
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
@@ -14,6 +15,7 @@
         <h4>Appointment</h4>
         <hr />
         @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.AppointmentID)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
@@ -34,14 +36,17 @@
         <div class="form-group">
             @Html.LabelFor(model => model.StartTime, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input data-val="true" data-val-required="The StartTime field is required." id="StartTime" name="StartTime" type="time" value="">
+                <input data-val="true" data-val-required="The StartTime field is required." id="StartTime" name="StartTime" type="time" value="@Model.StartTime" />
                 @Html.ValidationMessageFor(model => model.StartTime)
             </div>
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="col-md-offset-2 col-md-10 min-content">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+            <div class="col-md-10 min-content">
+                <a href=@Url.Action("Delete", "Home", new { guid = @Model.AppointmentID }) class="btn btn-danger">Delete</a>
             </div>
         </div>
     </div>

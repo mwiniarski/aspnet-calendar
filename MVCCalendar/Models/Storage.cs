@@ -26,9 +26,17 @@ namespace MVCCalendar.Models
                         where att.Person.PersonID == p.PersonID
                         select a;
 
-                var list = new List<Appointment>(q.OrderBy(i => i.AppointmentDate));
+                var list = new List<Appointment>(q.OrderBy(i => i.StartTime));
                 return new List<Appointment>(list.Where(a => a.AppointmentDate.DayOfYear > (week - 1) * 7 && 
                                                              a.AppointmentDate.DayOfYear < (week + 3) * 7));
+            }
+        }
+
+        public Appointment findAppointment(Guid id)
+        {
+            using (var db = new StorageContext())
+            {
+                return db.Appointments.Find(id);
             }
         }
 
@@ -78,6 +86,7 @@ namespace MVCCalendar.Models
                 {
                     original.StartTime = New.StartTime;
                     original.Title = New.Title;
+                    original.Description = New.Description;
 
                     try
                     {
@@ -98,8 +107,11 @@ namespace MVCCalendar.Models
             using (var db = new StorageContext())
             {
                 var original = db.Appointments.Find(Old.AppointmentID);
+                var att = from a in db.Attendances where a.AppointmentID == Old.AppointmentID select a;
+
                 if (original != null)
                 {
+                    db.Attendances.Remove(att.FirstOrDefault());
                     db.Appointments.Remove(original);
 
                     try

@@ -23,18 +23,19 @@
         @foreach (var Day in ViewBag.cal.GetRange(7*i, 7))
         {
             <td>
-                <a class="day" href=@Url.Action("Add", "Home", new { month = string.Format("{0:MM}", Day.Date), day = string.Format("{0:dd}", Day.Date) })>
+                <div class="day" onclick="location.href='@Url.Action("Add", "Home", new { month = string.Format("{0:MM}", Day.Date), 
+                                                                                            day = string.Format("{0:dd}", Day.Date)  })'">
                     <div class="date">
                         @Day.DateString
                     </div>
                     @foreach (var Event in Day.Events)
                     {
-                        <div class="event">
+                        <a href=@Url.Action("Edit", "Home", new { guid = Event.AppointmentID }) class="event">
                             @Event.StartTime.ToString("hh':'mm")
                             @Event.Title
-                        </div>
+                        </a>
                     }
-                </a>
+                </div>
             </td>
         }
         <td>@string.Format("W{0:D2} 2018", ViewBag.week + i)</td>

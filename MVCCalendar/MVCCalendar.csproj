@@ -208,6 +208,7 @@
       <LastGenOutput>StorageContext.cs</LastGenOutput>
     </Content>
     <Content Include="Views\Home\Add.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

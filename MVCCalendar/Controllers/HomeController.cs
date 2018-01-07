@@ -79,23 +79,60 @@ namespace MVCCalendar.Controllers
             return View();
         }
 
+        public ActionResult Edit(Guid guid)
+        {
+            Storage s = new Storage();
+            Appointment app = s.findAppointment(guid);
+            if(app == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            return View(app);
+        }
+
         [HttpPost]
-        public RedirectResult Add([Bind(Include = "Title, Description, AppointmentDate")]Appointment apt, int month, int day)
+        public RedirectResult Add([Bind(Include = "Title, Description, StartTime")]Appointment apt, int month, int day)
         {
             if (!isDateValid(month, day))
             {
                 Session["message"] = "Wrong url address!";
-                Redirect("/");
+                return Redirect("/");
             }
 
-            System.Diagnostics.Debug.WriteLine(apt.Title);
-            System.Diagnostics.Debug.WriteLine(day);
-            System.Diagnostics.Debug.WriteLine(month);
             Storage s = new Storage();
             apt.AppointmentDate = new DateTime(2018, month, day);
             s.addAppointment(apt, (Person)Session["user"]);
             return Redirect("/");
         }
 
+        [HttpPost]
+        public RedirectResult Edit([Bind(Include = "Title, Description, StartTime")]Appointment New, Guid guid)
+        {
+            Storage s = new Storage();
+            Appointment Old = s.findAppointment(guid);
+            if (Old == null)
+            {
+                Session["message"] = "Appointment doesn't exist!";
+                return Redirect("/");
+            }
+
+            s.updateAppointment(Old, New);
+            return Redirect("/");
+        }
+
+        public RedirectResult Delete(Guid guid)
+        {
+            Storage s = new Storage();
+            Appointment Old = s.findAppointment(guid);
+            if (Old == null)
+            {
+                Session["message"] = "Appointment doesn't exist!";
+                return Redirect("/");
+            }
+
+            s.removeAppointment(Old);
+            return Redirect("/");
+        }
     }
 }

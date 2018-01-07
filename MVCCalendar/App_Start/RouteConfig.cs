@@ -15,7 +15,7 @@ namespace MVCCalendar
 
             routes.MapRoute(
                 "Default",
-                "",
+                "{controller}/{action}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
@@ -35,6 +35,18 @@ namespace MVCCalendar
                 "Add",
                 "add/{month}/{day}",
                 new { controller = "Home", action = "Add", month = UrlParameter.Optional, day = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                "Edit",
+                "edit/{guid}",
+                new { controller = "Home", action = "Edit", guid = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                "Delete",
+                "delete/{guid}",
+                new { controller = "Home", action = "Delete", guid = UrlParameter.Optional }
             );
         }
     }
